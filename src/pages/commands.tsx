@@ -6,17 +6,18 @@ const Commands = () => {
     Office.onReady(() => {
       Office.actions.associate("writeValue", writeValue);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const runOnWord = async (text: string) => {
-    try{
+    try {
       await Word.run(async (context) => {
         context.document.body.insertParagraph(text, Word.InsertLocation.end);
         await context.sync();
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
-    }; 
+    };
   }
 
   const writeValue = async (event: Office.AddinCommands.Event) => {
@@ -26,7 +27,7 @@ const Commands = () => {
   }
 
   return (
-    <div/>
+    <div />
   );
 }
 
