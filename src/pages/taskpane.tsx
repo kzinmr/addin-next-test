@@ -8,6 +8,7 @@ type PageProps = {
 }
 
 export const getServerSideProps: GetServerSideProps = async (_context: GetServerSidePropsContext) => {
+  // この関数はサーバー側でのみ実行される　以下は例
   // return fetch('https://jsonplaceholder.typicode.com/todos/1')
   //   .then(response => response.json())
   //   .then(json => {
