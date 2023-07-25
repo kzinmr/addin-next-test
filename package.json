@@ -2,11 +2,21 @@
   "name": "addin-next-test",
   "version": "0.1.0",
   "private": true,
+  "config": {
+    "app_to_debug": "word",
+    "app_type_to_debug": "desktop",
+    "dev_server_port": 3000
+  },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "odev": "office-addin-debugging start manifest.xml",
+    "odev:desktop": "office-addin-debugging start manifest.xml desktop",
+    "odev:web": "office-addin-debugging start manifest.xml web",
+    "ostop": "office-addin-debugging stop manifest.xml",
+    "ovalidate": "office-addin-manifest validate manifest.xml"
   },
   "dependencies": {
     "@types/node": "20.4.4",
@@ -21,5 +31,13 @@
     "react-dom": "18.2.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/office-js": "^1.0.338",
+    "@types/office-runtime": "^1.0.33",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "office-addin-debugging": "^5.0.11",
+    "office-addin-dev-certs": "^1.11.5",
+    "office-addin-manifest": "^1.12.6"
   }
 }
