@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-const Chat = () => {
+const Chat: React.FC = () => {
 
-  const [text, setText] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [text, setText] = useState<string>('');
+  const [messages, setMessages] = useState<string[]>([]);
 
   const runOnWord = async (text: string) => {
     try{
@@ -16,7 +16,7 @@ const Chat = () => {
     };
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setMessages([...messages, text]);
     runOnWord(text);
@@ -24,7 +24,7 @@ const Chat = () => {
     setText('');
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
 

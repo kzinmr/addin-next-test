@@ -19,7 +19,7 @@ const Commands = () => {
     }; 
   }
 
-  const writeValue = async (event) => {
+  const writeValue = async (event: Office.AddinCommands.Event) => {
     await runOnWord("ExecuteFunction works. Button ID=" + event.source.id);
     // Calling event.completed is required. event.completed lets the platform know that processing has completed.
     event.completed();
