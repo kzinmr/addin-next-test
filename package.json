@@ -35,7 +35,6 @@
   "devDependencies": {
     "@types/office-js": "^1.0.338",
     "@types/office-runtime": "^1.0.33",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "office-addin-debugging": "^5.0.11",
     "office-addin-dev-certs": "^1.11.5",
     "office-addin-manifest": "^1.12.6"
