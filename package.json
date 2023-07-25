@@ -12,11 +12,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "odev": "office-addin-debugging start manifest.xml",
-    "odev:desktop": "office-addin-debugging start manifest.xml desktop",
-    "odev:web": "office-addin-debugging start manifest.xml web",
-    "ostop": "office-addin-debugging stop manifest.xml",
-    "ovalidate": "office-addin-manifest validate manifest.xml"
+    "odev": "office-addin-debugging start manifest-local.xml",
+    "odev:desktop": "office-addin-debugging start manifest-local.xml desktop",
+    "odev:web": "office-addin-debugging start manifest-local.xml web",
+    "ostop": "office-addin-debugging stop manifest-local.xml",
+    "ovalidate": "office-addin-manifest validate manifest-local.xml"
   },
   "dependencies": {
     "@types/node": "20.4.4",

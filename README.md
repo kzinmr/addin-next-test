@@ -35,4 +35,8 @@ Tips. According to [Debugging with Safari Web Inspector on a Mac](https://learn.
 
 ## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+First, deploy some hosting server (like vercel) on this app.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+To deliver add-in in your org, access [Microsoft 365 admin center > Settings > IntegratedApps](https://admin.microsoft.com/adminportal#/Settings/IntegratedApps) page, then upload `manifest.xml` with production settings.
+Check out the official docs([Deploy add-ins in the Microsoft 365 admin center](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins)) for more details.
