@@ -1,7 +1,7 @@
-const { createServer } = require('https')
-const { parse } = require('url')
-const next = require('next')
-const devCerts = require('office-addin-dev-certs')
+import { createServer } from 'https'
+import { parse } from 'url'
+import next from 'next'
+const devCerts = require("office-addin-dev-certs");
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
@@ -14,15 +14,14 @@ app.prepare().then(async () => {
 
   createServer(options, async (req, res) => {
     try {
-      const parsedUrl = parse(req.url, true)
+      const parsedUrl = parse(req.url ?? "", true)
       await handle(req, res, parsedUrl)
     } catch (err) {
       console.error('Error occurred handling', req.url, err)
       res.statusCode = 500
       res.end('internal server error')
     }
-  }).listen(port, (err) => {
-    if (err) throw err
+  }).listen(port, () => {
     console.log(`> Ready on https://${hostname}:${port}`)
   })
 })
