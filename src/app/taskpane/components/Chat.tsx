@@ -6,12 +6,12 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<string[]>([]);
 
   const runOnWord = async (text: string) => {
-    try{
+    try {
       await Word.run(async (context) => {
         context.document.body.insertParagraph(text, Word.InsertLocation.end);
         await context.sync();
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     };
   }
@@ -43,7 +43,7 @@ const Chat: React.FC = () => {
         </button>
       </form>
       <div>
-          {messages.map((message, index) => (
+        {messages.map((message, index) => (
           <p key={index}>{message}</p>
         ))}
       </div>
