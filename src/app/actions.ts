@@ -34,7 +34,7 @@ export async function getChats(userId?: string | null) {
 export async function getChat(id: string, userId: string) {
   const chat = await kv.hgetall<Chat>(`chat:${id}`);
 
-  if (!chat || (userId && chat.userId !== userId)) {
+  if (!chat || chat.userId.toString() !== userId) {
     return null;
   }
 
@@ -45,7 +45,7 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
   const session = await getServerSession(options);
   const userId = session?.user?.id;
 
-  if (!session) {
+  if (!session || userId === undefined) {
     return {
       error: "Unauthorized",
     };
@@ -53,7 +53,7 @@ export async function removeChat({ id, path }: { id: string; path: string }) {
 
   const uid = await kv.hget<string>(`chat:${id}`, "userId");
 
-  if (uid !== userId) {
+  if (uid === null || uid.toString() !== userId) {
     return {
       error: "Unauthorized",
     };
@@ -70,7 +70,7 @@ export async function clearChats() {
   const session = await getServerSession(options);
   const userId = session?.user?.id;
 
-  if (!userId) {
+  if (!session || userId === undefined) {
     return {
       error: "Unauthorized",
     };
@@ -107,7 +107,7 @@ export async function shareChat(chat: Chat) {
   const session = await getServerSession(options);
   const userId = session?.user?.id;
 
-  if (!userId || userId !== chat.userId) {
+  if (!userId || userId !== chat.userId.toString()) {
     return {
       error: "Unauthorized",
     };

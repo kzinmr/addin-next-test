@@ -17,12 +17,11 @@ export const options: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.id = account.providerAccountId;
         token.image = profile.image;
-        console.log("JWD defined", token)
       }
       return token;
     },
     session: ({ session, token }) => {
-      console.log("in session", { session, token });
+    //   console.log("in session", { session, token });
       token.accessToken;
       return {
         ...session,

@@ -40,7 +40,7 @@ export default async function ChatPage({ params }: ChatPageProps) {
   const userId = session?.user?.id;
   const chat = await getChat(params.id, userId);
 
-  if (chat === null || chat?.userId !== userId) {
+  if (chat === null || chat?.userId.toString() !== userId) {
     notFound();
   }
 
