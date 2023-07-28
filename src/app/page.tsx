@@ -1,18 +1,10 @@
-import Link from 'next/link'
+import { nanoid } from "@/lib/utils";
+import { Chat } from "@/components/chat";
 
-export default function Home() {
-  return (
-    <ul>
-      <li>
-        <Link href="/taskpane">
-          taskpane
-        </Link>
-      </li>
-      <li>
-        <Link href="/commands">
-          commands
-        </Link>
-      </li>
-    </ul>
-  )
+export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+
+export default function IndexPage() {
+  const id = nanoid();
+
+  return <Chat id={id} />;
 }
