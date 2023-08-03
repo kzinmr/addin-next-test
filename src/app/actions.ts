@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { kv } from "@vercel/kv";
 
 import { getServerSession } from "next-auth/next";
-import { options } from "@/app/auth_options";
+import { options } from "@/app/api/auth/auth_options";
 import { type Chat } from "@/lib/types";
 
 export async function getChats(userId?: string | null) {

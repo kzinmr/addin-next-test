@@ -3,7 +3,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 import { Configuration, OpenAIApi } from "openai-edge";
 import { getServerSession } from "next-auth/next";
 
-import { options } from "@/app/auth_options";
+import { options } from "@/app/api/auth/auth_options";
 import { nanoid } from "@/lib/utils";
 
 export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';

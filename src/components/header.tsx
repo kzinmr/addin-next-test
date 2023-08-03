@@ -2,7 +2,7 @@ import * as React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 
-import { options } from "@/app/auth_options";
+import { options } from "@/app/api/auth/auth_options";
 import { clearChats } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Sidebar } from "@/components/sidebar";

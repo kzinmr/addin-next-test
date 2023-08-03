@@ -1,4 +1,4 @@
-import { options } from "@/app/auth_options";
+import { options } from "@/app/api/auth/auth_options";
 import NextAuth from "next-auth";
 
 export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';

@@ -8,8 +8,8 @@
     "dev_server_port": 3000
   },
   "scripts": {
-    "dev": "ts-node server.ts",
-    "build": "next build",
+    "dev": "ts-node --project tsconfig.server.json server.ts",
+    "build": "next build && tsc --project tsconfig.server.json",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
