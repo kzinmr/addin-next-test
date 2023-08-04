@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-
+import Script from "next/script";
 import { Toaster } from "react-hot-toast";
 
 import "@/app/globals.css";
@@ -7,7 +7,7 @@ import { fontMono, fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Providers } from "@/components/providers";
-import { Header } from "@/components/header";
+import { AuthProviders } from "@/components/auth-providers";
 
 export const metadata: Metadata = {
   title: {
@@ -30,10 +30,36 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function OfficeRootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <Script
+          id="window.history.cache"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          // Office.js deletes window.history.pushState and window.history.replaceState.
+          window._historyCache = {
+              replaceState: window.history.replaceState,
+              pushState: window.history.pushState
+          };
+          `,}}
+        />
+        <Script
+          strategy="beforeInteractive"
+          src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"
+        />
+        <Script
+          id="window.history.restore"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          window.history.replaceState = window._historyCache.replaceState;
+          window.history.pushState = window._historyCache.pushState;
+          `,}}
+        />
+      </head>
       <body
         className={cn(
           "font-sans antialiased",
@@ -41,15 +67,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontMono.variable
         )}
       >
+        <AuthProviders>
         <Toaster />
         <Providers attribute="class" defaultTheme="system" enableSystem>
           <div className="flex min-h-screen flex-col">
             {/* @ts-ignore */}
-            <Header />
-            <main className="flex flex-1 flex-col bg-muted/50">{children}</main>
+            {/* without Header */}
+            {children}
           </div>
           <TailwindIndicator />
         </Providers>
+        </AuthProviders>
       </body>
     </html>
   );

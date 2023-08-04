@@ -2,7 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 import GitHub from "next-auth/providers/github";
 
 export const options: NextAuthOptions = {
-  debug: true,
+  // debug: true,
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -21,7 +21,6 @@ export const options: NextAuthOptions = {
       return token;
     },
     session: ({ session, token }) => {
-    //   console.log("in session", { session, token });
       return {
         ...session,
         user: {

@@ -1,5 +1,5 @@
 import { UseChatHelpers } from "ai/react";
-import * as React from "react";
+import { useEffect, useRef } from "react";
 import Textarea from "react-textarea-autosize";
 
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -26,10 +26,10 @@ export function PromptForm({
   isLoading,
 }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit();
-  const inputRef = React.useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }

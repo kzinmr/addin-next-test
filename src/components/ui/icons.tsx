@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useId } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -9,7 +9,7 @@ function IconNextChat({
   inverted,
   ...props
 }: React.ComponentProps<"svg"> & { inverted?: boolean }) {
-  const id = React.useId();
+  const id = useId();
 
   return (
     <svg

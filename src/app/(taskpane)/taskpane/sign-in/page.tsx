@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
+import { useState, useEffect } from "react"
 
 import { cn } from "@/lib/utils";
 import { Button, type ButtonProps } from "@/components/ui/button";
@@ -12,7 +12,7 @@ interface LoginButtonProps extends ButtonProps {
   text?: string;
 }
 
-export function LoginButton({
+function LoginButtonOnTaskpane({
   text = "Login with GitHub",
   showGithubIcon = true,
   className,
@@ -25,7 +25,7 @@ export function LoginButton({
       onClick={() => {
         setIsLoading(true);
         // next-auth signIn() function doesn't work yet at Edge Runtime due to usage of BroadcastChannel
-        signIn("github", { callbackUrl: `/` });
+        signIn("github", { callbackUrl: `/taskpane/sign-in` });
       }}
       disabled={isLoading}
       className={cn(className)}
@@ -38,5 +38,32 @@ export function LoginButton({
       ) : null}
       {text}
     </Button>
+  );
+}
+
+export default function SignInPage() {
+  useEffect(() => {
+    Office.onReady(() => {
+      // console.log('office loaded');
+    });
+  }, []);    
+  const {data: session} = useSession();
+  if (session?.user) {
+    Office.context.ui.messageParent(
+        JSON.stringify({
+          status: "success",
+          result: session.user.id,
+        })
+    );
+    return (
+        <>
+        <span>Login success! wait on...</span>
+        </>
+      );
+  }
+  return (
+    <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">
+      <LoginButtonOnTaskpane />
+    </div>
   );
 }

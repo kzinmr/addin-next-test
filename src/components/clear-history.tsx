@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -24,8 +24,8 @@ interface ClearHistoryProps {
 }
 
 export function ClearHistory({ clearChats }: ClearHistoryProps) {
-  const [open, setOpen] = React.useState(false);
-  const [isPending, startTransition] = React.useTransition();
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   return (

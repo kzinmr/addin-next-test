@@ -10,7 +10,7 @@ const Commands = () => {
           await context.sync();
         });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 

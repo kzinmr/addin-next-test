@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useCallback, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
@@ -50,33 +50,51 @@ export function SidebarActions({
   removeChat,
   shareChat,
 }: SidebarActionsProps) {
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
-  const [shareDialogOpen, setShareDialogOpen] = React.useState(false);
-  const [isRemovePending, startRemoveTransition] = React.useTransition();
-  const [isSharePending, startShareTransition] = React.useTransition();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [isRemovePending, startRemoveTransition] = useTransition();
+  const [isSharePending, startShareTransition] = useTransition();
   const router = useRouter();
 
-  const copyShareLink = React.useCallback(async (chat: Chat) => {
+  const copyShareLink = useCallback(async (chat: Chat, timeout = 2000) => {
+
     if (!chat.sharePath) {
       return toast.error("Could not copy share link to clipboard");
     }
 
     const url = new URL(window.location.href);
     url.pathname = chat.sharePath;
-    navigator.clipboard.writeText(url.toString());
+    const urlString = url.toString();
+    let isCopied = false;
+
+    try {
+      await navigator.clipboard.writeText(urlString);
+      isCopied = true;
+
+      setTimeout(() => {
+        isCopied = false;
+      }, timeout);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    };
+
     setShareDialogOpen(false);
-    toast.success("Share link copied to clipboard", {
-      style: {
-        borderRadius: "10px",
-        background: "#333",
-        color: "#fff",
-        fontSize: "14px",
-      },
-      iconTheme: {
-        primary: "white",
-        secondary: "black",
-      },
-    });
+    if (isCopied) {
+      return toast.success("Share link copied to clipboard", {
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+          fontSize: "14px",
+        },
+        iconTheme: {
+          primary: "white",
+          secondary: "black",
+        },
+      });
+    } else {
+      return toast.error("Could not copy share link to clipboard");
+    }
   }, []);
 
   return (
@@ -143,18 +161,15 @@ export function SidebarActions({
               onClick={() => {
                 startShareTransition(async () => {
                   if (chat.sharePath) {
-                    await new Promise((resolve) => setTimeout(resolve, 500));
                     copyShareLink(chat);
                     return;
                   }
 
                   const result = await shareChat(chat);
-
                   if (result && "error" in result) {
                     toast.error(result.error);
                     return;
                   }
-
                   copyShareLink(result);
                 });
               }}
