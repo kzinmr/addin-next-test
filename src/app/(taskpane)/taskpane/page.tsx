@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 
 import { options } from "@/app/api/auth/auth_options";
-import { TaskPaneLoginButton } from "@/components/taskpane-login-button";
+import { LoginButtonWithPopup } from "@/components/login-button-with-popup";
 
 export default async function SignInPage() {
   // get server-side generated redirect URL
@@ -20,7 +20,7 @@ export default async function SignInPage() {
   }
   return (
     <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">
-      <TaskPaneLoginButton hostname={hostname}/>
+      <LoginButtonWithPopup hostname={hostname}/>
     </div>
   );
 }
