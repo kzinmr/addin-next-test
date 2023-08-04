@@ -6,7 +6,8 @@ import { options } from "@/app/api/auth/auth_options";
 import { getChat } from "@/app/actions";
 import { Chat } from "@/components/chat";
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime =
+  process.env.NODE_ENV === "production" ? "edge" : "nodejs";
 export const preferredRegion = "home";
 
 export interface ChatPageProps {

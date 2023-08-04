@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useEffect, useState } from "react";
 
@@ -7,35 +7,41 @@ import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { cn } from "@/lib/utils";
 
-
-type MyArg = {message: string, origin: string | undefined} | {error: number};
+type MyArg =
+  | { message: string; origin: string | undefined }
+  | { error: number };
 
 function launchSignInDialog() {
-  const redirectUrl = `https://${window.location.host}/taskpane/sign-in`
+  const redirectUrl = `https://${window.location.host}/taskpane/sign-in`;
   // console.log('Launching dialog... redirect URL is ', redirectUrl);
-  Office.context.ui.displayDialogAsync(redirectUrl, { height: 60, width: 30 }, (result) => {
-    // console.log("Dialog has initialized. Wiring up events");
-    const loginDialog = result.value;
-    loginDialog.addEventHandler(Office.EventType.DialogMessageReceived, 
-      async (arg: MyArg ) => {
-        if ('message' in arg) {
-          let messageFromDialog = JSON.parse(arg.message);
-          if (loginDialog && messageFromDialog.status === "success") {
-            // const userId = messageFromDialog.result;
-            // console.log('Sign-in sucess! closing dialog');
-            loginDialog.close();
-          } else {
-            // Something went wrong with auth(n/z) of the web application.
-            if (messageFromDialog.error) {
-              console.error(messageFromDialog.error);
+  Office.context.ui.displayDialogAsync(
+    redirectUrl,
+    { height: 60, width: 30 },
+    (result) => {
+      // console.log("Dialog has initialized. Wiring up events");
+      const loginDialog = result.value;
+      loginDialog.addEventHandler(
+        Office.EventType.DialogMessageReceived,
+        async (arg: MyArg) => {
+          if ("message" in arg) {
+            let messageFromDialog = JSON.parse(arg.message);
+            if (loginDialog && messageFromDialog.status === "success") {
+              // const userId = messageFromDialog.result;
+              // console.log('Sign-in sucess! closing dialog');
+              loginDialog.close();
             } else {
-              console.error(messageFromDialog.result);
+              // Something went wrong with auth(n/z) of the web application.
+              if (messageFromDialog.error) {
+                console.error(messageFromDialog.error);
+              } else {
+                console.error(messageFromDialog.result);
+              }
             }
           }
         }
-      }
-    );
-  });
+      );
+    }
+  );
 }
 
 export default function TaskPane() {
@@ -44,10 +50,10 @@ export default function TaskPane() {
       // console.log('office loaded');
     });
   }, []);
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   if (session?.user) {
     // console.log('Signed-in, redirect to home')
-    redirect('/');
+    redirect("/");
   }
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -55,8 +61,8 @@ export default function TaskPane() {
       <Button
         variant="outline"
         onClick={() => {
-            setIsLoading(true);
-            launchSignInDialog();
+          setIsLoading(true);
+          launchSignInDialog();
         }}
         disabled={isLoading}
       >

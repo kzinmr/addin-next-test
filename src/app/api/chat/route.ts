@@ -6,7 +6,8 @@ import { getServerSession } from "next-auth/next";
 import { options } from "@/app/api/auth/auth_options";
 import { nanoid } from "@/lib/utils";
 
-export const runtime = process.env.NODE_ENV === 'production' ? 'edge' : 'nodejs';
+export const runtime =
+  process.env.NODE_ENV === "production" ? "edge" : "nodejs";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,

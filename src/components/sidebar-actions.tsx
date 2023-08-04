@@ -57,7 +57,6 @@ export function SidebarActions({
   const router = useRouter();
 
   const copyShareLink = useCallback(async (chat: Chat, timeout = 2000) => {
-
     if (!chat.sharePath) {
       return toast.error("Could not copy share link to clipboard");
     }
@@ -75,8 +74,8 @@ export function SidebarActions({
         isCopied = false;
       }, timeout);
     } catch (err) {
-      console.error('Failed to copy: ', err);
-    };
+      console.error("Failed to copy: ", err);
+    }
 
     setShareDialogOpen(false);
     if (isCopied) {

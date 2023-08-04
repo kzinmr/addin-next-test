@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import { useSession, signIn } from "next-auth/react";
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button, type ButtonProps } from "@/components/ui/button";
@@ -46,20 +46,20 @@ export default function SignInPage() {
     Office.onReady(() => {
       // console.log('office loaded');
     });
-  }, []);    
-  const {data: session} = useSession();
+  }, []);
+  const { data: session } = useSession();
   if (session?.user) {
     Office.context.ui.messageParent(
-        JSON.stringify({
-          status: "success",
-          result: session.user.id,
-        })
+      JSON.stringify({
+        status: "success",
+        result: session.user.id,
+      })
     );
     return (
-        <>
+      <>
         <span>Login success! wait on...</span>
-        </>
-      );
+      </>
+    );
   }
   return (
     <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">

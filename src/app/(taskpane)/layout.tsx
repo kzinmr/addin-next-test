@@ -44,7 +44,8 @@ export default function OfficeRootLayout({ children }: RootLayoutProps) {
               replaceState: window.history.replaceState,
               pushState: window.history.pushState
           };
-          `,}}
+          `,
+          }}
         />
         <Script
           strategy="beforeInteractive"
@@ -57,7 +58,8 @@ export default function OfficeRootLayout({ children }: RootLayoutProps) {
             __html: `
           window.history.replaceState = window._historyCache.replaceState;
           window.history.pushState = window._historyCache.pushState;
-          `,}}
+          `,
+          }}
         />
       </head>
       <body
@@ -68,15 +70,15 @@ export default function OfficeRootLayout({ children }: RootLayoutProps) {
         )}
       >
         <AuthProviders>
-        <Toaster />
-        <Providers attribute="class" defaultTheme="system" enableSystem>
-          <div className="flex min-h-screen flex-col">
-            {/* @ts-ignore */}
-            {/* without Header */}
-            {children}
-          </div>
-          <TailwindIndicator />
-        </Providers>
+          <Toaster />
+          <Providers attribute="class" defaultTheme="system" enableSystem>
+            <div className="flex min-h-screen flex-col">
+              {/* @ts-ignore */}
+              {/* without Header */}
+              {children}
+            </div>
+            <TailwindIndicator />
+          </Providers>
         </AuthProviders>
       </body>
     </html>
