@@ -2,7 +2,6 @@ import { createServer } from 'https'
 import { parse } from 'url'
 import next from 'next'
 const devCerts = require("office-addin-dev-certs");
-
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
 const port = 3000

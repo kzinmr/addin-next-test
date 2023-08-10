@@ -1,8 +1,7 @@
-'use client'
+"use client";
 import React, { useEffect } from "react";
 
 const Commands = () => {
-
   useEffect(() => {
     const runOnWord = async (text: string) => {
       try {
@@ -11,24 +10,22 @@ const Commands = () => {
           await context.sync();
         });
       } catch (error) {
-        console.log(error);
-      };
-    }
+        console.error(error);
+      }
+    };
 
     const writeValue = async (event: Office.AddinCommands.Event) => {
       await runOnWord("ExecuteFunction works. Button ID=" + event.source.id);
       // Calling event.completed is required. event.completed lets the platform know that processing has completed.
       event.completed();
-    }
+    };
 
     Office.onReady(() => {
       Office.actions.associate("writeValue", writeValue);
     });
   }, []);
 
-  return (
-    <div />
-  );
-}
+  return <div />;
+};
 
 export default Commands;
